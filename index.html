@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emlak.com - Ana Sayfa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #2b2d42;
+            --accent-color: #457b9d;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            --card-hover-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 0;
+            background-color: rgba(230, 57, 70, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .navbar-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .navbar-logo:hover {
+            transform: scale(1.05);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transition: var(--transition);
+        }
+
+        .navbar-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar-contact {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .navbar-contact a, .navbar-contact .phone {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid white;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .navbar-contact .phone {
+            background-color: white;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-contact a:hover {
+            background-color: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(230, 57, 70, 0.4), rgba(69, 123, 157, 0.4));
+            z-index: 1;
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-color);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            font-weight: 600;
+        }
+
+        .service-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 2px solid var(--primary-color);
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(230, 57, 70, 0.2);
+        }
+
+        footer {
+            background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-section ul li a:hover {
+            opacity: 1;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .navbar-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-contact {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .navbar-contact a, .navbar-contact .phone {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+                padding: 0 1rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            .services {
+                padding: 0 1rem;
+            }
+
+            .service-card {
+                min-height: auto;
+                padding: 1.5rem;
+            }
+
+            .stats {
+                margin: 2rem 1rem;
+                padding: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .features {
+                padding: 0 1rem;
+            }
+
+            .feature-item {
+                padding: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                color: white;
+                cursor: pointer;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+            }
+        }
+
+        .service-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 300px;
+            background: linear-gradient(to bottom right, #fff, #f8f9fa);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: var(--primary-color);
+            border-radius: 20px;
+            color: white;
+            box-shadow: var(--card-shadow);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: countUp 2s forwards;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .feature-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .feature-content p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-logo">emlak.com</a>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="navbar-links">
+                <li><a href="kiralik-ev.html">Kiralık Ev</a></li>
+                <li><a href="kiralik-araba.html">Kiralık Araba</a></li>
+                <li><a href="satilik-araba.html">Satılık Araba</a></li>
+            </ul>
+            <div class="navbar-contact">
+                <span class="phone">📞 0707 502 76</span>
+                <a href="iletisim.html">İletişim</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Hayalinizdeki Mülk Burada</h1>
+        <p>Kiralık ve satılık ev ve araba ilanları için doğru adrestesiniz</p>
+        <a href="#services" class="cta-button">Hizmetlerimizi Keşfedin</a>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number">1500+</div>
+            <div class="stat-label">Aktif İlan</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">3000+</div>
+            <div class="stat-label">Mutlu Müşteri</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Müşteri Desteği</div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="service-card">
+            <div>
+                <i class="fas fa-home service-icon"></i>
+                <h3>Kiralık Ev</h3>
+                <p>Size uygun kiralık evleri keşfedin</p>
+            </div>
+            <a href="kiralik-ev.html" class="cta-button">İncele</a>
+        </div>
+        <div class="service-card">
+            <div>
+                <i class="fas fa-car service-icon"></i>
+                <h3>Kiralık Araba</h3>
+                <p>Günlük ve aylık kiralık araç seçenekleri</p>
+            </div>
+            <a href="kiralik-araba.html" class="cta-button">İncele</a>
+        </div>
+        <div class="service-card">
+            <div>
+                <i class="fas fa-car-side service-icon"></i>
+                <h3>Satılık Araba</h3>
+                <p>İkinci el ve sıfır araç seçenekleri</p>
+            </div>
+            <a href="satilik-araba.html" class="cta-button">İncele</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-item">
+            <i class="fas fa-shield-alt feature-icon"></i>
+            <div class="feature-content">
+                <h3>Güvenli İşlem</h3>
+                <p>Tüm işlemleriniz güvence altında, profesyonel ekibimiz yanınızda.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-clock feature-icon"></i>
+            <div class="feature-content">
+                <h3>Hızlı Süreç</h3>
+                <p>Minimum bürokrasi ile hızlı ve kolay işlem imkanı.</p>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-hand-holding-usd feature-icon"></i>
+            <div class="feature-content">
+                <h3>Uygun Fiyatlar</h3>
+                <p>Her bütçeye uygun seçenekler ve özel fırsatlar.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Hakkımızda</h4>
+                <p>Emlak ve araç kiralama sektöründe güvenilir hizmet sunuyoruz.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Hızlı Linkler</h4>
+                <ul>
+                    <li><a href="kiralik-ev.html">Kiralık Evler</a></li>
+                    <li><a href="kiralik-araba.html">Kiralık Arabalar</a></li>
+                    <li><a href="satilik-araba.html">Satılık Arabalar</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>İletişim</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> 0707 502 76</li>
+                    <li><i class="fas fa-envelope"></i> ornek@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Üsküp, Makedonya</li>
+                </ul>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem; opacity: 0.8;">&copy; 2024 emlak.com - Tüm hakları saklıdır.</p>
+    </footer>
+
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Scroll to top button
+        const scrollToTop = document.querySelector('.scroll-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollToTop.classList.add('visible');
+            } else {
+                scrollToTop.classList.remove('visible');
+            }
+        });
+
+        scrollToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Navbar scroll effect
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navbarLinks = document.querySelector('.navbar-links');
+
+        menuToggle.addEventListener('click', () => {
+            navbarLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar-container')) {
+                navbarLinks.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html> 
+
